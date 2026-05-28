@@ -23,7 +23,7 @@ def AI():
     else:
         info = "抱歉，我現在無法生成回應，請稍後再試。"
 
-    return response.text
+    return make_response(jsonify({"fulfillmentText": info}))
 
 @app.route("/webhook7", methods=["POST"])
 def webhook7():
