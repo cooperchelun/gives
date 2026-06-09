@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>我的何倫碼測試結果 | 實用型·社會型·事務型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e0eaf4 0%, #cfdef5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans TC', system-ui, sans-serif;
+            padding: 30px 40px;
+        }
+
+        .result-card {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 48px;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 32px 42px 20px 42px;
+            border-bottom: 1px solid #f0f2f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-text h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2c3e66, #1a4d8c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .header-text p {
+            color: #5b6e8c;
+            margin-top: 8px;
+            font-size: 0.98rem;
+        }
+
+        .back-home-btn {
+            background: #f0f4fa;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e66;
+            cursor: pointer;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-home-btn:hover {
+            background: #2c3e66;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tri-code-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 28px;
+            padding: 36px 42px 24px 42px;
+            flex-wrap: wrap;
+        }
+
+        .code-block {
+            flex: 1;
+            min-width: 200px;
+            background: #fefefe;
+            border-radius: 32px;
+            transition: 0.25s;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eef2f8;
+        }
+
+        .code-letter {
+            text-align: center;
+            padding: 28px 16px 20px 16px;
+            cursor: pointer;
+            border-radius: 32px 32px 0 0;
+            background: #ffffff;
+        }
+
+        .big-letter {
+            font-size: 4.8rem;
+            font-weight: 800;
+            width: 110px;
+            height: 110px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .code-block[data-type="R"] .big-letter {
+            background: #ffe8e0;
+            color: #c25d3a;
+        }
+        .code-block[data-type="S"] .big-letter {
+            background: #e0f0ea;
+            color: #2a7f6e;
+        }
+        .code-block[data-type="C"] .big-letter {
+            background: #eaeefb;
+            color: #3a619b;
+        }
+
+        .type-name {
+            font-size: 1.45rem;
+            font-weight: 700;
+            margin-top: 16px;
+            color: #1f2a44;
+        }
+
+        .score-pr {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 12px;
+            font-size: 1rem;
+            color: #4a5b7a;
+            font-weight: 500;
+        }
+
+        .score-pr span {
+            background: #f8fafc;
+            padding: 5px 16px;
+            border-radius: 40px;
+        }
+
+        .expand-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #fafcff;
+            border-radius: 0 0 32px 32px;
+        }
+
+        .code-block:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.18);
+        }
+
+        .code-block:hover .expand-panel {
+            max-height: 200px;
+            padding: 20px 22px 26px 22px;
+            border-top: 1px solid #e9edf4;
+        }
+
+        .desc-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #6c7e9e;
+            margin-bottom: 12px;
+        }
+
+        .desc-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #2c3f5c;
+        }
+
+        .desc-sub {
+            font-size: 0.85rem;
+            color: #6f85a8;
+            margin-top: 10px;
+            border-left: 3px solid;
+            padding-left: 12px;
+        }
+
+        .code-block[data-type="R"] .desc-sub { border-left-color: #c25d3a; }
+        .code-block[data-type="S"] .desc-sub { border-left-color: #2a7f6e; }
+        .code-block[data-type="C"] .desc-sub { border-left-color: #3a619b; }
+
+        /* 數據表格區域（取代原本的破圖） */
+        .data-table-section {
+            margin: 16px 42px 32px 42px;
+            background: #fff5f5;
+            border: 3px solid #e53e3e;
+            border-radius: 36px;
+            padding: 20px 28px;
+        }
+
+        .data-header {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #b91c1c;
+            margin-bottom: 20px;
+            padding-left: 14px;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .six-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px 20px;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 12px 18px;
+            border-radius: 48px;
+            font-weight: 500;
+        }
+
+        .score-item span:first-child {
+            font-weight: 700;
+            color: #2d3a4b;
+        }
+
+        .score-item span:last-child strong {
+            font-size: 1.2rem;
+            color: #1f3a5f;
+        }
+
+        .pr-text {
+            color: #6f7d95;
+            font-size: 0.8rem;
+        }
+
+        .footer-hint {
+            font-size: 0.75rem;
+            color: #b37b48;
+            text-align: center;
+            border-top: 1px dashed #ffe0cc;
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+
+        .footer-note {
+            padding: 20px 42px 36px 42px;
+            border-top: 1px solid #ecf3fa;
+            font-size: 0.8rem;
+            color: #8698b5;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            body { padding: 20px 24px; }
+            .tri-code-section { flex-direction: column; gap: 20px; padding: 24px 28px; }
+            .six-grid { grid-template-columns: repeat(2, 1fr); }
+            .data-table-section { margin: 12px 28px 28px 28px; }
+        }
+
+        @media (max-width: 550px) {
+            .six-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="result-card">
+    <div class="card-header">
+        <div class="header-text">
+            <h1>✨ 我的何倫碼測試結果 ✨</h1>
+            <p>實用型 · 社會型 · 事務型 ｜ 你的前三碼傾向組合</p>
+        </div>
+        <!-- 修正：將原本指向 about.html 的連結改為 index.html -->
+        <button class="back-home-btn" id="backToHomeBtn">🏠 回首頁界面</button>
+    </div>
+
+    <div class="tri-code-section">
+        <div class="code-block" data-type="R">
+            <div class="code-letter">
+                <div class="big-letter">R</div>
+                <div class="type-name">實用型</div>
+                <div class="score-pr"><span>⚡ 傾向 9</span><span>📊 PR 94</span></div>
+            </div>
+            <div class="expand-panel">
+                <div class="desc-title">🔧 何倫碼 · R 型</div>
+                <div class="desc-text">務實、擅長動手操作，喜歡工具、機械、戶外活動。</div>
+                <div class="desc-sub">典型職業：工程師、技師、建築師、機械維修。</div>
+            </div>
+        </div>
+        <div class="code-block" data-type="S">
+            <div class="code-letter">
+                <div class="big-letter">S</div>
+                <div class="type-name">社會型</div>
+                <div class="score-pr"><span>⚡ 傾向 8</span><span>📊 PR 79</span></div>
+            </div>
+            <div class="expand-panel">
+                <div class="desc-title">🤝 何倫碼 · S 型</div>
+                <div class="desc-text">樂於助人、擅長溝通與合作，喜歡教育、諮商、醫療服務。</div>
+                <div class="desc-sub">典型職業：教師、心理師、護理師、社工、人資。</div>
+            </div>
+        </div>
+        <div class="code-block" data-type="C">
+            <div class="code-letter">
+                <div class="big-letter">C</div>
+                <div class="type-name">事務型</div>
+                <div class="score-pr"><span>⚡ 傾向 7</span><span>📊 PR 74</span></div>
+            </div>
+            <div class="expand-panel">
+                <div class="desc-title">📁 何倫碼 · C 型</div>
+                <div class="desc-text">細心、有條理，擅長文書、資料處理與組織架構。</div>
+                <div class="desc-sub">典型職業：行政專員、會計、資料分析師、秘書。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 數據表格區塊（取代原本的 me.png 圖片） -->
+    <div class="data-table-section">
+        <div class="data-header">📋 霍蘭德職業性格剖面 (完整評量數據)</div>
+        <div class="six-grid">
+            <div class="score-item" style="background:#fff2ec;"><span>🔧 實用型 R</span><span><strong>9</strong> <span class="pr-text">(PR94)</span></span></div>
+            <div class="score-item" style="background:#e3f5ef;"><span>🤝 社會型 S</span><span><strong>8</strong> <span class="pr-text">(PR79)</span></span></div>
+            <div class="score-item" style="background:#eaeefb;"><span>📂 事務型 C</span><span><strong>7</strong> <span class="pr-text">(PR74)</span></span></div>
+            <div class="score-item" style="background:#f5f3ff;"><span>🔬 研究型 I</span><span><strong>6</strong> <span class="pr-text">(PR69)</span></span></div>
+            <div class="score-item" style="background:#fef0fa;"><span>🎨 藝術型 A</span><span><strong>4</strong> <span class="pr-text">(PR52)</span></span></div>
+            <div class="score-item" style="background:#ffece5;"><span>📈 企業型 E</span><span><strong>2</strong> <span class="pr-text">(PR32)</span></span></div>
+        </div>
+        <div class="footer-hint">⚡ 最高三碼：R (實用型) > S (社會型) > C (事務型) ｜ 霍蘭德代碼 <strong>RSC</strong></div>
+    </div>
+
+    <div class="footer-note">
+        <span>💡 滑鼠移至 R / S / C 區塊，會顯示完整職業說明。</span>
+        <span>📌 紅色框內為完整測驗數據表格。</span>
+    </div>
+</div>
+
+<script>
+    // 修正：將原本指向 about.html 的連結改為 index.html
+    document.getElementById('backToHomeBtn').addEventListener('click', function() {
+        window.location.href = 'index.html';
+    });
+</script>
+</body>
+</html>
