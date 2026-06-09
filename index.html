@@ -179,6 +179,22 @@
         .bg-black {
             background-color: #000 !important;
         }
+        
+        /* 圖片樣式 */
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .img-placeholder {
+            background-color: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            border-radius: 16px;
+        }
 
         /* Signup 區塊 */
         .signup-section {
@@ -333,16 +349,13 @@
         </div>
     </section>
 
-    <!-- Projects 學習歷程區塊（已刪除「我的學習目標」，改為3個項目） -->
+    <!-- Projects 學習歷程區塊 -->
     <section class="projects-section bg-light" id="projects">
         <div class="container px-4 px-lg-5">
-            <!-- Project One - 關於我 -->
+            <!-- Project One - 關於我 + mypic.png -->
             <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                 <div class="col-lg-6">
-                    <div class="bg-dark p-5 text-center h-100 d-flex align-items-center justify-content-center rounded-4">
-                        <i class="fas fa-user fa-4x text-white-50"></i>
-                        <span class="text-white-50 ms-3 fw-bold">關於我</span>
-                    </div>
+                    <img class="img-fluid project-img" src="mypic.png" alt="關於我照片" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a2a2a/64a19d?text=My+Photo';">
                 </div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project d-flex align-items-center p-4 rounded-4">
@@ -353,7 +366,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Project Two - 喜歡的遊戲 -->
+            <!-- Project Two - 喜歡的遊戲 + genshin.png -->
             <div class="row gx-0 mb-5 mb-lg-0 justify-content-center mt-4">
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project d-flex align-items-center p-4 rounded-4">
@@ -364,19 +377,13 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="bg-dark p-5 text-center h-100 d-flex align-items-center justify-content-center rounded-4">
-                        <i class="fas fa-gamepad fa-4x text-white-50"></i>
-                        <span class="text-white-50 ms-3 fw-bold">喜歡的遊戲</span>
-                    </div>
+                    <img class="img-fluid project-img" src="genshin.png" alt="原神照片" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a2a2a/64a19d?text=Genshin+Impact';">
                 </div>
             </div>
-            <!-- Project Three - TQC 證照 -->
+            <!-- Project Three - TQC 證照 + test.png -->
             <div class="row gx-0 justify-content-center mt-4">
                 <div class="col-lg-6">
-                    <div class="bg-dark p-5 text-center h-100 d-flex align-items-center justify-content-center rounded-4">
-                        <i class="fas fa-certificate fa-4x text-white-50"></i>
-                        <span class="text-white-50 ms-3 fw-bold">TQC 證照</span>
-                    </div>
+                    <img class="img-fluid project-img" src="test.png" alt="TQC證照照片" onerror="this.onerror=null; this.src='https://placehold.co/600x400/2a2a2a/64a19d?text=TQC+Certificate';">
                 </div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project d-flex align-items-center p-4 rounded-4">
